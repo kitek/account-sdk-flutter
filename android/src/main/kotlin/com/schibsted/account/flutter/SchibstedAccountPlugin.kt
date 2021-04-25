@@ -1,16 +1,15 @@
 package com.schibsted.account.flutter
 
 import android.app.Activity
-import android.arch.lifecycle.Lifecycle
-import android.arch.lifecycle.LifecycleObserver
-import android.arch.lifecycle.OnLifecycleEvent
-import android.arch.lifecycle.ProcessLifecycleOwner
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
-import android.support.v4.app.ActivityCompat.startActivityForResult
-import android.support.v4.content.LocalBroadcastManager
+import androidx.core.app.ActivityCompat.startActivityForResult
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.OnLifecycleEvent
+import androidx.lifecycle.ProcessLifecycleOwner
 import com.google.gson.Gson
 import com.schibsted.account.AccountService
 import com.schibsted.account.Events
@@ -155,14 +154,14 @@ class SchibstedAccountPlugin(private val registrar: Registrar) : MethodCallHandl
     @OnLifecycleEvent(Lifecycle.Event.ON_START)
     fun onStart() {
         accountService.bind()
-        LocalBroadcastManager.getInstance(registrar.context()).registerReceiver(smartlockReceiver, IntentFilter(Events.ACTION_USER_LOGOUT));
-        LocalBroadcastManager.getInstance(registrar.context()).registerReceiver(accountSdkReceiver, IntentFilter(Events.ACTION_USER_LOGOUT))
+        androidx.localbroadcastmanager.content.LocalBroadcastManager.getInstance(registrar.context()).registerReceiver(smartlockReceiver, IntentFilter(Events.ACTION_USER_LOGOUT));
+        androidx.localbroadcastmanager.content.LocalBroadcastManager.getInstance(registrar.context()).registerReceiver(accountSdkReceiver, IntentFilter(Events.ACTION_USER_LOGOUT))
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
     fun onStop() {
-        LocalBroadcastManager.getInstance(registrar.context()).unregisterReceiver(smartlockReceiver)
-        LocalBroadcastManager.getInstance(registrar.context()).unregisterReceiver(accountSdkReceiver)
+        androidx.localbroadcastmanager.content.LocalBroadcastManager.getInstance(registrar.context()).unregisterReceiver(smartlockReceiver)
+        androidx.localbroadcastmanager.content.LocalBroadcastManager.getInstance(registrar.context()).unregisterReceiver(accountSdkReceiver)
         accountService.unbind()
     }
 
